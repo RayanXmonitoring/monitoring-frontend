@@ -29,6 +29,10 @@ import AdminUsers from './components/admin/AdminUsers';
 import AdminDevices from './components/admin/AdminDevices';
 import AdminResellers from './components/admin/AdminResellers';
 
+// PIN Pages
+import PinPage from './components/pin/PinPage';
+import PinManager from './components/pin/PinManager';
+
 const AppContent = () => {
   const { user, loading } = useAuth();
 
@@ -48,20 +52,37 @@ const AppContent = () => {
             border: '1px solid #374151',
             borderRadius: '12px'
           },
+          success: {
+            icon: '✅',
+            duration: 3000,
+          },
+          error: {
+            icon: '❌',
+            duration: 4000,
+          },
+          loading: {
+            icon: '⏳',
+            duration: 2000,
+          }
         }}
       />
       
       <Routes>
+        {/* Auth Routes */}
         <Route path="/login" element={
-          user ? <Navigate to="/dashboard" /> : <Login />
+          user ? <Navigate to="/dashboard" replace /> : <Login />
         } />
         
+        {/* Protected Routes */}
         <Route path="/" element={
           <ProtectedRoute user={user}>
             <Layout />
           </ProtectedRoute>
         }>
-          <Route index element={<Navigate to="/dashboard" />} />
+          {/* Default Redirect */}
+          <Route index element={<Navigate to="/dashboard" replace />} />
+          
+          {/* Dashboard */}
           <Route path="dashboard" element={<Dashboard />} />
           
           {/* Monitoring Routes */}
@@ -73,6 +94,10 @@ const AppContent = () => {
           
           {/* Stealer Routes */}
           <Route path="stealer" element={<StealerC2 />} />
+          
+          {/* PIN Routes */}
+          <Route path="pin" element={<PinPage />} />
+          <Route path="pin/manage" element={<PinManager />} />
           
           {/* Admin Routes */}
           <Route path="admin" element={
@@ -95,9 +120,15 @@ const AppContent = () => {
               <AdminResellers />
             </AdminRoute>
           } />
+          <Route path="admin/pin" element={
+            <AdminRoute user={user}>
+              <PinManager />
+            </AdminRoute>
+          } />
         </Route>
         
-        <Route path="*" element={<Navigate to="/dashboard" />} />
+        {/* 404 - Not Found */}
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </Router>
   );
