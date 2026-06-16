@@ -1,10 +1,11 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { 
   onAuthStateChanged, 
-  loginUser, 
-  logoutUser,
-  getCurrentUser
-} from '../config/firebase';
+  signInWithEmailAndPassword,
+  signOut,
+  getAuth
+} from 'firebase/auth';
+import { auth } from '../config/firebase';
 import toast from 'react-hot-toast';
 
 const AuthContext = createContext();
@@ -21,10 +22,10 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
-  const ADMIN_EMAIL = process.env.REACT_APP_ADMIN_EMAIL;
+  const ADMIN_EMAIL = process.env.REACT_APP_ADMIN_EMAIL || 'tiktokbaru3377@gmail.com';
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(async (firebaseUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       setLoading(true);
       
       if (firebaseUser) {
@@ -51,44 +52,20 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const userCredential = await loginUser(email, password);
-      const isAdminUser = userCredential.user.email === ADMIN_EMAIL;
-      
-      if (isAdminUser) {
-        localStorage.setItem('isAdmin', 'true');
-        setIsAdmin(true);
-      }
-      
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
       toast.success('Login berhasil!');
       return userCredential;
     } catch (error) {
       console.error('Login error:', error);
-      let errorMessage = 'Login gagal';
-      
-      switch (error.code) {
-        case 'auth/user-not-found':
-          errorMessage = 'Email tidak terdaftar';
-          break;
-        case 'auth/wrong-password':
-          errorMessage = 'Password salah';
-          break;
-        case 'auth/too-many-requests':
-          errorMessage = 'Terlalu banyak percobaan, coba lagi nanti';
-          break;
-        default:
-          errorMessage = error.message;
-      }
-      
-      toast.error(errorMessage);
+      toast.error(error.message);
       throw error;
     }
   };
 
   const logout = async () => {
     try {
-      await logoutUser();
+      await signOut(auth);
       localStorage.removeItem('isAdmin');
-      setIsAdmin(false);
       toast.success('Logout berhasil');
     } catch (error) {
       console.error('Logout error:', error);
