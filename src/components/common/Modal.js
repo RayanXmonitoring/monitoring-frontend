@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { XMarkIcon } from '@heroicons/react/24/outline';
 
 const Modal = ({ isOpen, onClose, title, children }) => {
   useEffect(() => {
@@ -24,7 +23,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
             onClick={onClose}
             className="p-1 hover:bg-gray-700 rounded-lg transition text-gray-400 hover:text-white"
           >
-            <XMarkIcon className="w-6 h-6" />
+            ✕
           </button>
         </div>
         <div className="p-6">{children}</div>
