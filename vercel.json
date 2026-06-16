@@ -1,9 +1,9 @@
 {
   "version": 2,
-  "buildCommand": "npm install --legacy-peer-deps && npm install ajv@6.12.6 --save-dev && npm install ajv-keywords@3.5.2 --save-dev && npm run build",
+  "buildCommand": "yarn install && yarn build",
   "outputDirectory": "build",
-  "devCommand": "npm start",
-  "installCommand": "npm install --legacy-peer-deps",
+  "devCommand": "yarn start",
+  "installCommand": "yarn install",
   "routes": [
     {
       "src": "/(.*)",
