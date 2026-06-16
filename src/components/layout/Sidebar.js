@@ -28,6 +28,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     { path: '/monitoring', icon: VideoCameraIcon, label: 'Live Monitoring' },
     { path: '/device-lock', icon: LockClosedIcon, label: 'Device Lock' },
     { path: '/stealer', icon: KeyIcon, label: 'Stealer C2' },
+    { path: '/pin', icon: ShieldCheckIcon, label: 'Environment PIN' },
   ];
 
   const adminItems = [
