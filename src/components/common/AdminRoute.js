@@ -1,6 +1,5 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
 
 const AdminRoute = ({ children, user }) => {
   const isAdmin = localStorage.getItem('isAdmin') === 'true';
@@ -10,7 +9,6 @@ const AdminRoute = ({ children, user }) => {
   }
 
   if (!isAdmin) {
-    toast.error('Akses ditolak! Hanya admin yang diizinkan');
     return <Navigate to="/dashboard" replace />;
   }
 
