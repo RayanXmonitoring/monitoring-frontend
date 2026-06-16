@@ -1,9 +1,9 @@
 {
   "version": 2,
-  "buildCommand": "yarn install && yarn build",
+  "buildCommand": "npm install --legacy-peer-deps && npm run build",
   "outputDirectory": "build",
-  "devCommand": "yarn start",
-  "installCommand": "yarn install",
+  "devCommand": "npm start",
+  "installCommand": "npm install --legacy-peer-deps",
   "routes": [
     {
       "src": "/(.*)",
