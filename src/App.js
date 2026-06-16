@@ -2,16 +2,13 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 
-// Components
-import ProtectedRoute from './components/common/ProtectedRoute';
-import AdminRoute from './components/common/AdminRoute';
-
-// Pages - Import langsung tanpa Layout
+// Pages
 import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
-import Admin from './components/admin/Admin';
 
-// Simple Layout Component
+console.log('App.js loaded');
+
+// Simple Layout
 const Layout = ({ children }) => {
   return (
     <div className="min-h-screen bg-gray-900">
@@ -27,8 +24,17 @@ const Layout = ({ children }) => {
   );
 };
 
+// Protected Route
+const ProtectedRoute = ({ children, user }) => {
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+};
+
 const AppContent = () => {
   const { user, loading } = useAuth();
+  console.log('AppContent - user:', user, 'loading:', loading);
 
   if (loading) {
     return (
@@ -56,14 +62,6 @@ const AppContent = () => {
           </ProtectedRoute>
         } />
         
-        <Route path="/admin" element={
-          <AdminRoute user={user}>
-            <Layout>
-              <Admin />
-            </Layout>
-          </AdminRoute>
-        } />
-        
         <Route path="/" element={
           <Navigate to={user ? "/dashboard" : "/login"} />
         } />
@@ -75,6 +73,7 @@ const AppContent = () => {
 };
 
 const App = () => {
+  console.log('App rendering');
   return (
     <AuthProvider>
       <AppContent />
