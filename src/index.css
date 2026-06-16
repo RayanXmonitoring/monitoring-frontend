@@ -13,6 +13,10 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  * {
+    @apply box-border;
+  }
+
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -52,4 +56,4 @@
   .card {
     @apply bg-gray-800 rounded-xl border border-gray-700 overflow-hidden;
   }
-    }
+}
