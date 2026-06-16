@@ -2,11 +2,9 @@ import React, { createContext, useState, useEffect, useContext } from 'react';
 import { 
   onAuthStateChanged, 
   signInWithEmailAndPassword,
-  signOut,
-  getAuth
+  signOut
 } from 'firebase/auth';
 import { auth } from '../config/firebase';
-import toast from 'react-hot-toast';
 
 const AuthContext = createContext();
 
@@ -53,11 +51,10 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      toast.success('Login berhasil!');
+      console.log('Login berhasil!');
       return userCredential;
     } catch (error) {
       console.error('Login error:', error);
-      toast.error(error.message);
       throw error;
     }
   };
@@ -66,10 +63,10 @@ export const AuthProvider = ({ children }) => {
     try {
       await signOut(auth);
       localStorage.removeItem('isAdmin');
-      toast.success('Logout berhasil');
+      console.log('Logout berhasil');
     } catch (error) {
       console.error('Logout error:', error);
-      toast.error('Gagal logout');
+      throw error;
     }
   };
 
