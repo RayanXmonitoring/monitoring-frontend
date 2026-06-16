@@ -1,20 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Navbar from '../layout/Navbar';
-import Sidebar from '../layout/Sidebar';
 
 const Layout = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-
   return (
-    <div className="min-h-screen bg-gray-900 flex">
-      <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
-      <div className="flex-1 lg:ml-64">
-        <Navbar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-        <main className="p-6">
-          <Outlet />
-        </main>
-      </div>
+    <div className="min-h-screen bg-gray-900">
+      <nav className="bg-gray-800 border-b border-gray-700 px-6 py-4">
+        <h1 className="text-2xl font-bold text-white">Monitoring System</h1>
+      </nav>
+      <main className="p-6">
+        <Outlet />
+      </main>
     </div>
   );
 };
