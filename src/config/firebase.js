@@ -1,12 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { 
-  getAuth, 
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged,
-  setPersistence,
-  browserLocalPersistence
-} from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -20,26 +13,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Set persistence
-setPersistence(auth, browserLocalPersistence);
-
-// Auth functions
-const loginUser = async (email, password) => {
-  return await signInWithEmailAndPassword(auth, email, password);
-};
-
-const logoutUser = async () => {
-  return await signOut(auth);
-};
-
-const getCurrentUser = () => {
-  return auth.currentUser;
-};
-
-export { 
-  auth, 
-  loginUser, 
-  logoutUser, 
-  onAuthStateChanged, 
-  getCurrentUser 
-};
+export { app, auth };
