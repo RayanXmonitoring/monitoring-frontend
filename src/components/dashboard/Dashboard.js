@@ -61,6 +61,7 @@ const Dashboard = () => {
     { icon: VideoCameraIcon, label: 'Live Monitoring', path: '/monitoring', color: 'orange' },
     { icon: LockClosedIcon, label: 'Device Lock', path: '/device-lock', color: 'red' },
     { icon: KeyIcon, label: 'Stealer C2', path: '/stealer', color: 'yellow' },
+    { icon: ShieldCheckIcon, label: 'Environment PIN', path: '/pin', color: 'indigo' },
   ];
 
   const statCards = [
