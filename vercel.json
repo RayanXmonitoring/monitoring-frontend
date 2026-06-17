@@ -1,9 +1,13 @@
 {
   "version": 2,
-  "buildCommand": "yarn install && yarn build",
+  "buildCommand": "npm install --legacy-peer-deps && npm run build",
   "outputDirectory": "build",
-  "devCommand": "yarn start",
-  "installCommand": "yarn install --frozen-lockfile",
+  "devCommand": "npm start",
+  "installCommand": "npm install --legacy-peer-deps",
+  "env": {
+    "REACT_APP_ADMIN_EMAIL": "tiktokbaru3377@gmail.com",
+    "REACT_APP_ADMIN_PASSWORD": "Rayanxweb@0037"
+  },
   "routes": [
     {
       "src": "/(.*)",
